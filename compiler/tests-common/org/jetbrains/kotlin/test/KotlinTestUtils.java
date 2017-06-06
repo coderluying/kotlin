@@ -648,7 +648,7 @@ public class KotlinTestUtils {
     }
 
     @NotNull
-    public static <M, F> List<F> createTestFiles(String testFileName, String expectedText, TestFileFactory<M, F> factory) {
+    public static <M, F> List<F> createTestFiles(@Nullable String testFileName, String expectedText, TestFileFactory<M, F> factory) {
         return createTestFiles(testFileName, expectedText, factory, false);
     }
 
@@ -661,6 +661,7 @@ public class KotlinTestUtils {
         Matcher matcher = FILE_OR_MODULE_PATTERN.matcher(expectedText);
         boolean hasModules = false;
         if (!matcher.find()) {
+            assert testFileName != null : "testFileName should not be null if no FILE directive defined";
             // One file
             testFiles.add(factory.createFile(null, testFileName, expectedText, directives));
         }

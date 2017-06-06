@@ -19,6 +19,8 @@ package org.jetbrains.kotlin.checkers
 import org.jetbrains.kotlin.test.MockLibraryUtil
 import java.io.File
 
+val FOREIGN_ANNOTATIONS_SOURCES_PATH = "compiler/testData/foreignAnnotations/annotations"
+
 abstract class AbstractForeignAnnotationsTest : AbstractDiagnosticsWithFullJdkTest() {
     override fun getExtraClasspath(): List<File> {
         return listOf(MockLibraryUtil.compileLibraryToJar(
@@ -28,5 +30,5 @@ abstract class AbstractForeignAnnotationsTest : AbstractDiagnosticsWithFullJdkTe
     }
 
     open protected val annotationsPath: String
-        get() = "compiler/testData/foreignAnnotations/annotations"
+        get() = FOREIGN_ANNOTATIONS_SOURCES_PATH
 }
