@@ -252,15 +252,16 @@ class CopyKotlinDeclarationsHandler : CopyHandlerDelegateBase() {
                         runWriteAction {
                             val newElements = elementsToCopy.map { targetFile.add(it.copy()) as KtNamedDeclaration }
                             elementsToCopy.zip(newElements).toMap(oldToNewElementsMapping)
+
+                            for (newElement in oldToNewElementsMapping.values) {
+                                restoredInternalUsages += restoreInternalUsages(newElement as KtElement, oldToNewElementsMapping, true)
+                                postProcessMoveUsages(restoredInternalUsages, oldToNewElementsMapping)
+                            }
+                            restoredInternalUsages
                         }
                     }
 
                     runWriteAction {
-                        for (newElement in oldToNewElementsMapping.values) {
-                            restoredInternalUsages += restoreInternalUsages(newElement as KtElement, oldToNewElementsMapping, true)
-                            postProcessMoveUsages(restoredInternalUsages, oldToNewElementsMapping)
-                        }
-
                         performDelayedRefactoringRequests(project)
                     }
 
