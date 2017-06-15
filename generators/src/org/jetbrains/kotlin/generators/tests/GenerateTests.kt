@@ -1189,6 +1189,7 @@ fun main(args: Array<String>) {
             model("comparison/packageMembers", extension = null, excludeParentDirs = true)
             model("comparison/unchanged", extension = null, excludeParentDirs = true)
         }
+            model("comparison/jvmOnly", extension = null, excludeParentDirs = true)
     }
 
     testGroup("plugins/plugins-tests/tests",  "plugins/android-extensions/android-extensions-compiler/testData") {
